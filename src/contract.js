@@ -6,6 +6,7 @@
 //   - get_reward() → reward per correct answer
 //   - get_balance() → contract XLM balance
 
+//contract.js
 const REWARD_PER_CORRECT_XLM = 0.5; // XLM per correct answer
 const STORAGE_KEY = "quizxlm_contract";
 

@@ -1,3 +1,4 @@
+//leaderboard.jsx
 import React, { useEffect, useState } from "react";
 
 const TOTAL_QUESTIONS = 8;

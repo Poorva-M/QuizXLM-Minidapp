@@ -33,8 +33,8 @@ export const CONTRACT_CONFIG = {
 };
 
 // ── ADMIN ACCOUNT (set via .env) ──
-const ADMIN_SECRET = import.meta.env.VITE_ADMIN_SECRET;
-const ADMIN_PUBLIC  = "GCSL5XQ5TSNJPTOCF3K5VYX5EDS3QMYBEKZBKCD5QFKHQODNMHLXP7TN";
+const ADMIN_SECRET = import.meta.env.VITE_ADMIN_SECRET?.trim();
+const ADMIN_PUBLIC = "GDZO33RMTGQF6ZJMZFOBLQ4ZFBA3ALRKB24PRMT577BRFEVSWK2KN5NZ";
 
 const server = new Horizon.Server(CONTRACT_CONFIG.HORIZON_URL);
 
@@ -103,6 +103,18 @@ export const markPlayedToday = (publicKey) => {
  * @returns {Promise<ContractResult>}
  */
 export const sendReward = async (playerPublicKey, correctAnswers, maxStreak = 0) => {
+
+   // ADD THIS CHECK
+  if (!ADMIN_SECRET || !ADMIN_SECRET.startsWith("S")) {
+    return { success: false, message: "Admin secret key not configured in .env" };
+  }
+
+  // rest of existing code...
+  if (!playerPublicKey) {
+    return { success: false, message: "No wallet connected." };
+  }
+
+
   // ── Validation ──
   if (!playerPublicKey) {
     return { success: false, message: "No wallet connected." };
